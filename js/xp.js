@@ -70,6 +70,8 @@ export function drawXPOrbs(ctx) {
         const orb = xpOrbs[i];
 
         ctx.fillStyle = orb.color;
-        ctx.fillRect(orb.x - orb.width / 2, orb.y - orb.height / 2, orb.width, orb.height);
+        ctx.beginPath();
+        ctx.arc(orb.x, orb.y, orb.hitboxRadius, 0, Math.PI * 2);
+        ctx.fill();
     }
 }
