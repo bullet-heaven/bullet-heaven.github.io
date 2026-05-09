@@ -1,5 +1,8 @@
 import { clamp, normalizeVector } from "./utils.js";
 
+const playerSpriteSheet = new Image();
+playerSpriteSheet.src = "assets/images/player.png";
+
 export function createPlayer(canvas) {
     return {
         x: canvas.width / 2,
@@ -93,11 +96,29 @@ function updatePlayerDamageFlash(player, deltaTime) {
 }
 
 export function drawPlayer(ctx, player) {
+    const spriteSize = 48;
+
+    ctx.save();
+
     if (player.damageFlashTimer > 0) {
-        ctx.fillStyle = "#ff1b1b"
-    } else {
-        ctx.fillStyle = player.color;
+        ctx.globalAlpha = 0.75;
     }
 
-    ctx.fillRect(player.x - player.width / 2, player.y - player.height / 2, player.width, player.height);
+    if (playerSpriteSheet.complete && playerSpriteSheet.naturalWidth !== 0) {
+        const totalFrames = 4;
+
+        const frameWidth = playerSpriteSheet.width / totalFrames;
+        const frameHeight = playerSpriteSheet.height;
+
+        const animationSpeed = 150;
+        const currentFrame = Math.floor(Date.now() / animationSpeed) % totalFrames;
+
+        ctx.drawImage(playerSpriteSheet, currentFrame * frameWidth, 0, frameWidth, frameHeight,
+            player.x - spriteSize / 2, player.y - spriteSize / 2, spriteSize, spriteSize);
+    } else {
+        ctx.fillStyle = player.damageFlashTimer > 0 ? "#ff1b1b" : player.color;
+        ctx.fillRect(player.x - player.width / 2, player.y - player.height / 2, player.width, player.height);
+    }
+
+    ctx.restore();
 }
