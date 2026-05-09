@@ -5,10 +5,10 @@ export function createPlayer(canvas) {
         x: canvas.width / 2,
         y: canvas.height / 2,
 
-        width: 60,
-        height: 60,
+        width: 30,
+        height: 30,
 
-        speed: 100,
+        speed: 50,
 
         maxHealth: 100,
         health: 100,
@@ -20,14 +20,14 @@ export function createPlayer(canvas) {
 
         fireTimer: 0,
         fireInterval: 0.5,
-        bulletSpeed: 500,
+        bulletSpeed: 250,
         damage: 10,
 
         growth: 1,
         level: 1,
         xp: 0,
         xpToNextLevel: 5,
-        magnet: 100,
+        magnet: 50,
 
         selectedUpgrades: [],
         upgradeLevels: {},
