@@ -102,7 +102,7 @@ function drawUpgradeSlots(ctx, player) {
         const upgradeKey = player.selectedUpgrades[i];
 
         if (upgradeKey) {
-            drawUpgradeIcon(ctx, x + 3, y + 3, slotSize - 5, upgradeKey);
+            drawUpgradeIcon(ctx, x + 2, y + 2, slotSize - 4, upgradeKey);
         }
     }
 }
@@ -222,7 +222,7 @@ function drawPauseUpgradeCard(ctx, x, y, upgradeKey, level) {
     ctx.fillStyle = "white";
     ctx.font = "bold 20px Arial";
     ctx.textAlign = "center";
-    ctx.fillText(upgrade.symbol, x + 5 + iconSize / 2, y + 27);
+    ctx.fillText(upgrade.symbol, x + 4 + iconSize / 2, y + 27);
 
     ctx.fillStyle = "black";
     ctx.font = "bold 18px Arial";

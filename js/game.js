@@ -132,8 +132,8 @@ function drawGame() {
     drawBackground(ctx, canvas);
     drawXPOrbs(ctx);
     drawBullets(ctx);
-    drawPlayer(ctx, player);
     drawEnemies(ctx);
+    drawPlayer(ctx, player);
     drawHUD(ctx, canvas, player, game.elapsedTime);
 }
 

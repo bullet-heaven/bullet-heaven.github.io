@@ -101,7 +101,7 @@ export function drawPlayer(ctx, player) {
     ctx.save();
 
     if (player.damageFlashTimer > 0) {
-        ctx.globalAlpha = 0.75;
+        ctx.globalAlpha = 0.6;
     }
 
     if (playerSpriteSheet.complete && playerSpriteSheet.naturalWidth !== 0) {

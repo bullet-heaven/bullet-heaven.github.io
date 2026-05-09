@@ -1,6 +1,52 @@
 import { normalizeVector, getRadius, getCenter, isColliding } from "./utils.js";
 import { playSound } from "./audio.js";
 
+const smallSpriteSheet = new Image();
+const normalSpriteSheet = new Image();
+const tankSpriteSheet = new Image();
+const bossSpriteSheet = new Image();
+const bossChargeSpriteSheet = new Image();
+
+smallSpriteSheet.src = "assets/images/small.png";
+normalSpriteSheet.src = "assets/images/normal.png";
+tankSpriteSheet.src = "assets/images/tank.png";
+bossSpriteSheet.src = "assets/images/boss.png";
+bossChargeSpriteSheet.src = "assets/images/boss-charge.png";
+
+const totalFrames = 4;
+
+const enemySpriteSettings = {
+    smallFast: {
+        image: smallSpriteSheet,
+        frameDuration: 140,
+        displayScale: 2.2
+    },
+
+    normal: {
+        image: normalSpriteSheet,
+        frameDuration: 150,
+        displayScale: 1.5
+    },
+
+    tank: {
+        image: tankSpriteSheet,
+        frameDuration: 180,
+        displayScale: 1.5
+    },
+
+    boss: {
+        image: bossSpriteSheet,
+        frameDuration: 140,
+        displayScale: 1.6
+    },
+
+    bossCharge: {
+        image: bossChargeSpriteSheet,
+        frameDuration: 100,
+        displayScale: 1.6
+    }
+};
+
 export const enemies = [];
 
 let enemySpawnTimer = 0;
@@ -122,6 +168,7 @@ function spawnEnemy(canvas, elapsedTime, mode) {
         typeName: typeName,
         damageFlashTimer: 0,
         damageFlashDuration: 0.08,
+        animationOffset: Math.random() * 1000,
     });
 }
 
@@ -383,17 +430,76 @@ function separateEnemiesFromEachOther() {
 export function drawEnemies(ctx) {
     for (let i = 0; i < enemies.length; i++) {
         const enemy = enemies[i];
+        const spriteSettings = getEnemySpriteSettings(enemy);
 
-        if (enemy.damageFlashTimer > 0) {
-            ctx.fillStyle = "white";
-        } else if (enemy.typeName === "boss" && enemy.dashState === "charging") {
-            ctx.fillStyle = "red";
-        } else if (enemy.typeName === "boss" && enemy.dashState === "dashing") {
-            ctx.fillStyle = "yellow";
+        if (spriteSettings && spriteSettings.image.complete && spriteSettings.image.naturalWidth !== 0) {
+            drawEnemySprite(ctx, enemy, spriteSettings);
         } else {
-            ctx.fillStyle = enemy.color;
+            drawEnemy(ctx, enemy);
         }
-
-        ctx.fillRect(enemy.x - enemy.width / 2, enemy.y - enemy.height / 2, enemy.width, enemy.height);
     }
+}
+
+function getEnemySpriteSettings(enemy) {
+    if (enemy.typeName === "boss") {
+        if (enemy.dashState === "charging") {
+            return enemySpriteSettings.bossCharge;
+        } else {
+            return enemySpriteSettings.boss;
+        }
+    }
+
+    return enemySpriteSettings[enemy.typeName];
+}
+
+function getCurrentSpriteFrame(enemy, spriteSettings) {
+    const offset = enemy.animationOffset || 0;
+    const time = performance.now() + offset;
+
+    return Math.floor(time / spriteSettings.frameDuration) % totalFrames;
+}
+
+function drawEnemySprite(ctx, enemy, spriteSettings) {
+    const image = spriteSettings.image;
+
+    const frameWidth = image.width / totalFrames;
+    const frameHeight = image.height;
+
+    const currentFrame = getCurrentSpriteFrame(enemy, spriteSettings);
+
+    const sourceX = currentFrame * frameWidth;
+    const sourceY = 0;
+
+    const drawWidth = enemy.width * spriteSettings.displayScale;
+    const drawHeight = enemy.height * spriteSettings.displayScale;
+
+    const drawX = enemy.x - drawWidth / 2;
+    const drawY = enemy.y - drawHeight / 2;
+
+    ctx.save();
+
+    ctx.imageSmoothingEnabled = false;
+
+    if (enemy.damageFlashTimer > 0) {
+        ctx.filter = "brightness(2.5)";
+        ctx.globalAlpha = 0.8;
+    }
+
+    ctx.drawImage(image, sourceX, sourceY, frameWidth, frameHeight, drawX, drawY, drawWidth, drawHeight);
+
+    ctx.restore();
+}
+
+function drawEnemy(ctx, enemy) {
+    if (enemy.damageFlashTimer > 0) {
+        ctx.fillStyle = "white";
+    } else if (enemy.typeName === "boss" && enemy.dashState === "charging") {
+        ctx.fillStyle = "red";
+    } else if (enemy.typeName === "boss" && enemy.dashState === "dashing") {
+        ctx.fillStyle = "yellow";
+    } else {
+        ctx.fillStyle = enemy.color;
+    }
+
+    ctx.fillRect(enemy.x - enemy.width / 2, enemy.y - enemy.height / 2, enemy.width, enemy.height);
 }
