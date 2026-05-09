@@ -13,7 +13,7 @@ export function createPlayer(canvas) {
         maxHealth: 100,
         health: 100,
         armor: 0,
-        regen: 2,
+        regen: 0.5,
 
         lastDirectionX: 1,
         lastDirectionY:0,

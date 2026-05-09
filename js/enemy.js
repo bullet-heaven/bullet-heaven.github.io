@@ -22,7 +22,7 @@ const enemyTypes = {
         height: 15,
         speed: 40,
         health: 5,
-        damage: 15,
+        damage: 40,
         xpValue: 4,
         color: "#ef4b4b"
     },
@@ -32,7 +32,7 @@ const enemyTypes = {
         height: 25,
         speed: 30,
         health: 20,
-        damage: 20,
+        damage: 50,
         xpValue: 5,
         color: "#834ab2"
     },
@@ -42,7 +42,7 @@ const enemyTypes = {
         height: 40,
         speed: 20,
         health: 70,
-        damage: 25,
+        damage: 60,
         xpValue: 6,
         color: "#4747f0"
     },

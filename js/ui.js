@@ -64,7 +64,7 @@ function drawStartButton(ctx, button) {
     ctx.fillStyle = "black";
     ctx.font = "bold 25px Arial";
     ctx.textAlign = "center";
-    ctx.fillText(button.text, button.x + button.width / 2, button.y + button.height / 2 + 7.5);
+    ctx.fillText(button.text, button.x + button.width / 2, button.y + button.height / 2 + 8);
 }
 
 export function drawHUD(ctx, canvas, player, elapsedTime) {
@@ -102,7 +102,7 @@ function drawUpgradeSlots(ctx, player) {
         const upgradeKey = player.selectedUpgrades[i];
 
         if (upgradeKey) {
-            drawUpgradeIcon(ctx, x + 2.5, y + 2.5, slotSize - 5, upgradeKey);
+            drawUpgradeIcon(ctx, x + 3, y + 3, slotSize - 5, upgradeKey);
         }
     }
 }
@@ -173,7 +173,7 @@ export function drawPauseScreen(ctx, canvas, player) {
 
 function drawWeaponLevelPanel(ctx, player) {
     const x = 5;
-    const y = 35;
+    const y = 5;
     const width = 150;
     const height = 50;
 
@@ -181,7 +181,7 @@ function drawWeaponLevelPanel(ctx, player) {
     ctx.fillRect(x, y, width, height);
 
     ctx.strokeStyle = "black";
-    ctx.lineWidth = 1.5;
+    ctx.lineWidth = 2;
     ctx.strokeRect(x, y, width, height);
 
     ctx.fillStyle = "white";
@@ -192,7 +192,7 @@ function drawWeaponLevelPanel(ctx, player) {
 
 function drawPauseUpgradeList(ctx, player){
     const startX = 5;
-    const startY = 90;
+    const startY = 60;
     const gap = 5;
 
     for (let i = 0; i < player.selectedUpgrades.length; i++) {
@@ -213,7 +213,7 @@ function drawPauseUpgradeCard(ctx, x, y, upgradeKey, level) {
     ctx.fillRect(x, y, width, height);
 
     ctx.strokeStyle = "black";
-    ctx.lineWidth = 1.5;
+    ctx.lineWidth = 2;
     ctx.strokeRect(x, y, width, height);
 
     ctx.fillStyle = "black";
@@ -222,15 +222,15 @@ function drawPauseUpgradeCard(ctx, x, y, upgradeKey, level) {
     ctx.fillStyle = "white";
     ctx.font = "bold 20px Arial";
     ctx.textAlign = "center";
-    ctx.fillText(upgrade.symbol, x + 4.5 + iconSize / 2, y + 26.5);
+    ctx.fillText(upgrade.symbol, x + 5 + iconSize / 2, y + 27);
 
     ctx.fillStyle = "black";
-    ctx.font = "bold 17.5px Arial";
+    ctx.font = "bold 18px Arial";
     ctx.textAlign = "left";
-    ctx.fillText(upgrade.name, x + 37.5, y + 17.5);
+    ctx.fillText(upgrade.name, x + 38, y + 18);
 
     ctx.font = "15px Arial";
-    ctx.fillText(`Level ${level}`, x + 37.5, y + 35);
+    ctx.fillText(`Level ${level}`, x + 38, y + 35);
 }
 
 export function getPauseMenuButton(canvas) {
@@ -369,7 +369,7 @@ export function drawHowToPlayScreen(ctx, canvas) {
 
     const startX = canvas.width / 2;
     let startY = 160;
-    const lineHeight = 27.5;
+    const lineHeight = 28;
 
     ctx.font = "20px Arial";
     startY += lineHeight;
@@ -383,7 +383,7 @@ export function drawHowToPlayScreen(ctx, canvas) {
 
     startY += lineHeight + 50;
 
-    ctx.font = "bold 27.5px Arial";
+    ctx.font = "bold 28px Arial";
     ctx.fillText("Controls", startX, startY);
 
     ctx.textAlign = "left"
