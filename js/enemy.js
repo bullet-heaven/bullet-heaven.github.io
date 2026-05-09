@@ -18,9 +18,9 @@ let bossModeEnemyTimer = 0;
 
 const enemyTypes = {
     smallFast: {
-        width: 30,
-        height: 30,
-        speed: 80,
+        width: 15,
+        height: 15,
+        speed: 40,
         health: 5,
         damage: 15,
         xpValue: 4,
@@ -28,9 +28,9 @@ const enemyTypes = {
     },
 
     normal: {
-        width: 50,
-        height: 50,
-        speed: 60,
+        width: 25,
+        height: 25,
+        speed: 30,
         health: 20,
         damage: 20,
         xpValue: 5,
@@ -38,9 +38,9 @@ const enemyTypes = {
     },
 
     tank: { 
-        width: 80,
-        height: 80,
-        speed: 40,
+        width: 40,
+        height: 40,
+        speed: 20,
         health: 70,
         damage: 25,
         xpValue: 6,
@@ -48,9 +48,9 @@ const enemyTypes = {
     },
 
     boss: {
-        width: 150,
-        height: 150,
-        speed: 50,
+        width: 75,
+        height: 75,
+        speed: 25,
         health: 10000,
         damage: 200,
         xpValue: 3,
@@ -92,7 +92,7 @@ function spawnEnemy(canvas, elapsedTime, mode) {
     let y;
 
     const side = Math.floor(Math.random() * 4);
-    const spawnOffset = 60;
+    const spawnOffset = 30;
 
     if (side === 0) {
         x = Math.random() * canvas.width;
@@ -130,7 +130,7 @@ function spawnBoss(canvas) {
 
     enemies.push({
         x: canvas.width / 2,
-        y: -100,
+        y: -50,
 
         width: type.width,
         height: type.height,
@@ -149,7 +149,7 @@ function spawnBoss(canvas) {
         dashChargeTimer: 0,
         dashDuration: 0.5,
         dashTimer: 0,
-        dashSpeed: 1500,
+        dashSpeed: 750,
         dashDirectionX: 0,
         dashDirectionY: 0,
         dashState: "onCooldown"

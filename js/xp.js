@@ -10,9 +10,9 @@ export function createXPOrb(x, y, value) {
     xpOrbs.push({
         x: x,
         y: y,
-        width: 10,
-        height: 10,
-        hitboxRadius: 10,
+        width: 5,
+        height: 5,
+        hitboxRadius: 5,
         value: value,
         color: "#00eeff"
     });
@@ -30,8 +30,8 @@ export function updateXPOrbs(player, deltaTime) {
             const distanceY = player.y - orb.y;
             const direction = normalizeVector(distanceX, distanceY);
 
-            orb.x += direction.x * 250 * deltaTime;
-            orb.y += direction.y * 250 * deltaTime;
+            orb.x += direction.x * 125 * deltaTime;
+            orb.y += direction.y * 125 * deltaTime;
         }
 
         if (isColliding(orb, player)) {
